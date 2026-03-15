@@ -23,9 +23,24 @@ export default function ProductsList() {
             </h1>
 
             <div className="flex gap-3 mb-8">
-                <button onClick={() => setSearchParams({})} className="px-4 py-2 bg-zinc-200 dark:bg-zinc-800 rounded hover:bg-zinc-300 transition">All</button>
-                <button onClick={() => setSearchParams({ category: 'electronics' })} className="px-4 py-2 bg-blue-100 dark:bg-blue-900 rounded hover:bg-blue-200 transition">Electronics</button>
-                <button onClick={() => setSearchParams({ category: 'clothing' })} className="px-4 py-2 bg-green-100 dark:bg-green-900 rounded hover:bg-green-200 transition">Clothing</button>
+                <button
+                    onClick={() => setSearchParams({})}
+                    className="px-4 py-2 bg-zinc-100 text-zinc-100 dark:bg-zinc-800 dark:text-zinc-100 rounded hover:bg-zinc-300 dark:hover:bg-zinc-700 transition"
+                >
+                    All
+                </button>
+                <button
+                    onClick={() => setSearchParams({ category: 'electronics' })}
+                    className="px-4 py-2 bg-blue-600 text-blue-100 dark:bg-blue-900 dark:text-blue-100 rounded hover:bg-blue-200 dark:hover:bg-blue-800 transition"
+                >
+                    Electronics
+                </button>
+                <button
+                    onClick={() => setSearchParams({ category: 'clothing' })}
+                    className="px-4 py-2 bg-green-600 text-green-100 dark:bg-green-900 dark:text-green-100 rounded hover:bg-green-200 dark:hover:bg-green-800 transition"
+                >
+                    Clothing
+                </button>
             </div>
 
             {/* Task 5: Responsive Grid Setup */}

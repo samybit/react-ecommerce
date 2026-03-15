@@ -7,7 +7,7 @@ export default function MainLayout() {
                 <Link to="/" className="font-bold text-blue-600 hover:text-blue-800">Home</Link>
                 <Link to="/cart" className="font-bold text-blue-600 hover:text-blue-800">Cart</Link>
             </nav>
-            {/* pt-20 pushes the content below the fixed navbar */}
+
             <main className="pt-20 p-4 max-w-6xl mx-auto">
                 <Outlet />
             </main>
