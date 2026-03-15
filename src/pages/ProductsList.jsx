@@ -2,9 +2,9 @@ import { useSearchParams, Link } from 'react-router';
 
 const hardcodedProducts = [
     { id: 1, title: 'Wireless Headphones', price: 120, category: 'electronics' },
-    { id: 2, title: 'Cotton T-Shirt', price: 25, category: 'clothing' },
-    { id: 3, title: 'Mechanical Keyboard', price: 85, category: 'electronics' },
-    { id: 4, title: 'Denim Jeans', price: 60, category: 'clothing' },
+    { id: 2, title: 'T-Shirt', price: 25, category: 'clothing' },
+    { id: 3, title: 'Keyboard', price: 85, category: 'electronics' },
+    { id: 4, title: 'Jeans', price: 60, category: 'clothing' },
 ];
 
 export default function ProductsList() {
