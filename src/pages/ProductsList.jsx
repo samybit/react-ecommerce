@@ -11,7 +11,7 @@ export default function ProductsList() {
     const [searchParams, setSearchParams] = useSearchParams();
     const category = searchParams.get('category');
 
-    // Filter logic based on the query parameter
+    // Filter logic
     const filteredProducts = category
         ? hardcodedProducts.filter(p => p.category === category)
         : hardcodedProducts;
@@ -43,7 +43,7 @@ export default function ProductsList() {
                 </button>
             </div>
 
-            {/* Task 5: Responsive Grid Setup */}
+            {/* Bonux: Responsive Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {filteredProducts.map(product => (
                     <div key={product.id} className="border border-zinc-200 dark:border-zinc-800 p-5 rounded-lg shadow-sm bg-white dark:bg-zinc-900 flex flex-col">

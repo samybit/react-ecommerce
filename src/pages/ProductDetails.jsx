@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router';
 
 export default function ProductDetails() {
-    const { id } = useParams(); // Extracts the dynamic :id from the URL
+    const { id } = useParams();
     const navigate = useNavigate();
 
     return (
