@@ -7,7 +7,7 @@ import MainLayout from './components/MainLayout';
 import ProductsList from './pages/ProductsList';
 import ProductDetails from './pages/ProductDetails';
 
-// Simple placeholder components for routes
+// Components for routes
 const Cart = () => <h1 className="text-2xl font-bold">Shopping Cart</h1>;
 const NotFound = () => <h1 className="text-2xl font-bold text-red-500">404 - Page Not Found</h1>;
 
