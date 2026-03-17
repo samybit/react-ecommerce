@@ -1,20 +1,31 @@
+import { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router';
 
-const hardcodedProducts = [
-    { id: 1, title: 'Wireless Headphones', price: 120, category: 'electronics' },
-    { id: 2, title: 'T-Shirt', price: 25, category: 'clothing' },
-    { id: 3, title: 'Keyboard', price: 85, category: 'electronics' },
-    { id: 4, title: 'Jeans', price: 60, category: 'clothing' },
-];
-
 export default function ProductsList() {
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [searchParams, setSearchParams] = useSearchParams();
     const category = searchParams.get('category');
 
-    // Filter logic
+    useEffect(() => {
+        // Fetch data from API
+        fetch('https://api.escuelajs.co/api/v1/products')
+            .then((res) => res.json())
+            .then((data) => {
+                setProducts(data);
+                setLoading(false);
+            })
+            .catch((err) => console.error("Failed to fetch products:", err));
+    }, []);
+
+    // Filter
     const filteredProducts = category
-        ? hardcodedProducts.filter(p => p.category === category)
-        : hardcodedProducts;
+        ? products.filter(p => p.category.name.toLowerCase() === category.toLowerCase())
+        : products;
+
+    if (loading) {
+        return <div className="text-xl font-bold text-center mt-20">Loading products...</div>;
+    }
 
     return (
         <div>
@@ -23,39 +34,35 @@ export default function ProductsList() {
             </h1>
 
             <div className="flex gap-3 mb-8">
-                <button
-                    onClick={() => setSearchParams({})}
-                    className="px-4 py-2 bg-zinc-100 text-zinc-100 dark:bg-zinc-800 dark:text-zinc-100 rounded hover:bg-zinc-300 dark:hover:bg-zinc-700 transition"
-                >
-                    All
-                </button>
-                <button
-                    onClick={() => setSearchParams({ category: 'electronics' })}
-                    className="px-4 py-2 bg-blue-600 text-blue-100 dark:bg-blue-900 dark:text-blue-100 rounded hover:bg-blue-200 dark:hover:bg-blue-800 transition"
-                >
-                    Electronics
-                </button>
-                <button
-                    onClick={() => setSearchParams({ category: 'clothing' })}
-                    className="px-4 py-2 bg-green-600 text-green-100 dark:bg-green-900 dark:text-green-100 rounded hover:bg-green-200 dark:hover:bg-green-800 transition"
-                >
-                    Clothing
-                </button>
+                <button onClick={() => setSearchParams({})} className="px-4 py-2 bg-zinc-200 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100 rounded hover:bg-zinc-300 dark:hover:bg-zinc-700 transition">All</button>
+                <button onClick={() => setSearchParams({ category: 'electronics' })} className="px-4 py-2 bg-blue-100 text-blue-900 dark:bg-blue-900 dark:text-blue-100 rounded hover:bg-blue-200 dark:hover:bg-blue-800 transition">Electronics</button>
+                <button onClick={() => setSearchParams({ category: 'clothes' })} className="px-4 py-2 bg-green-100 text-green-900 dark:bg-green-900 dark:text-green-100 rounded hover:bg-green-200 dark:hover:bg-green-800 transition">Clothes</button>
             </div>
 
-            {/* Bonux: Responsive Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {filteredProducts.map(product => (
-                    <div key={product.id} className="border border-zinc-200 dark:border-zinc-800 p-5 rounded-lg shadow-sm bg-white dark:bg-zinc-900 flex flex-col">
-                        <h2 className="text-xl font-semibold mb-2">{product.title}</h2>
-                        <p className="text-zinc-600 dark:text-zinc-400 mb-4">${product.price}</p>
-                        <div className="mt-auto">
-                            <Link
-                                to={`/product/${product.id}`}
-                                className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition w-full text-center"
-                            >
-                                View Details
-                            </Link>
+                    // Added overflow-hidden to keep the image corners rounded inside the card
+                    <div key={product.id} className="border border-zinc-200 dark:border-zinc-800 rounded-lg shadow-sm bg-white dark:bg-zinc-900 flex flex-col overflow-hidden">
+
+                        {/* Product Image */}
+                        <img
+                            src={product.images[0]}
+                            alt={product.title}
+                            className="w-full h-48 object-cover bg-zinc-100"
+                            onError={(e) => e.target.src = 'https://via.placeholder.com/300'}
+                        />
+
+                        <div className="p-5 flex flex-col flex-grow">
+                            <h2 className="text-xl font-semibold mb-2">{product.title}</h2>
+                            <p className="text-zinc-600 dark:text-zinc-400 mb-4">${product.price}</p>
+                            <div className="mt-auto">
+                                <Link
+                                    to={`/product/${product.id}`}
+                                    className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition w-full text-center"
+                                >
+                                    View Details
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 ))}
