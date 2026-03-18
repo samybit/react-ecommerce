@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../store/cartSlice';
 
 export default function ProductsList() {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchParams, setSearchParams] = useSearchParams();
     const category = searchParams.get('category');
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        // Fetch data from API
-        fetch('https://api.escuelajs.co/api/v1/products')
+        // Fetch products
+        fetch('https://api.escuelajs.co/api/v1/products?offset=0&limit=200')
             .then((res) => res.json())
             .then((data) => {
                 setProducts(data);
@@ -55,13 +58,19 @@ export default function ProductsList() {
                         <div className="p-5 flex flex-col flex-grow">
                             <h2 className="text-xl font-semibold mb-2">{product.title}</h2>
                             <p className="text-zinc-600 dark:text-zinc-400 mb-4">${product.price}</p>
-                            <div className="mt-auto">
+                            <div className="mt-auto flex gap-2">
                                 <Link
                                     to={`/product/${product.id}`}
-                                    className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition w-full text-center"
+                                    className="px-4 py-2 bg-zinc-200 text-zinc-900 rounded hover:bg-zinc-300 transition w-full text-center"
                                 >
-                                    View Details
+                                    Details
                                 </Link>
+                                <button
+                                    onClick={() => dispatch(addToCart(product))}
+                                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition w-full"
+                                >
+                                    Add to Cart
+                                </button>
                             </div>
                         </div>
                     </div>

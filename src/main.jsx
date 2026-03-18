@@ -3,12 +3,17 @@ import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import './index.css';
 
+// State Providers
+import { Provider } from 'react-redux';
+import { store } from './store/store';
+import { LanguageProvider } from './context/LanguageContext';
+
+// Components
 import MainLayout from './components/MainLayout';
 import ProductsList from './pages/ProductsList';
 import ProductDetails from './pages/ProductDetails';
+import Cart from './pages/Cart';
 
-// Components for routes
-const Cart = () => <h1 className="text-2xl font-bold">Shopping Cart</h1>;
 const NotFound = () => <h1 className="text-2xl font-bold text-red-500">404 - Page Not Found</h1>;
 
 const router = createBrowserRouter([
@@ -26,6 +31,11 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    {/* Wrapping in Redux and Context Providers */}
+    <Provider store={store}>
+      <LanguageProvider>
+        <RouterProvider router={router} />
+      </LanguageProvider>
+    </Provider>
   </StrictMode>
 );
