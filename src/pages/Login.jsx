@@ -40,7 +40,7 @@ export default function Login() {
         <div className="max-w-md mx-auto mt-20 p-6 border border-zinc-200 dark:border-zinc-800 rounded-lg shadow-sm bg-white dark:bg-zinc-900">
             <h1 className="text-2xl font-bold mb-6 text-center">Login</h1>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4" noValidate>
                 <div>
                     <label className="block text-sm font-medium mb-1">Email</label>
                     <input

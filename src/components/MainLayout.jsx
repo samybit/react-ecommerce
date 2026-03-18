@@ -27,8 +27,8 @@ export default function MainLayout() {
     }, [theme]);
 
     const handleLogout = () => {
-        logout(); // Clears the token in Zustand
-        navigate('/login'); // Kicks the user back to the login screen
+        logout();
+        navigate('/login');
     };
 
     return (
