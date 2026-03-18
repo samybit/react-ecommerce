@@ -26,7 +26,6 @@ const router = createBrowserRouter([
       { index: true, element: <ProductsList /> },
       { path: 'product/:id', element: <ProductDetails /> },
       { path: 'login', element: <Login /> },
-      // Protected Routes Wrapper
       {
         element: <ProtectedRoute />,
         children: [
@@ -36,7 +35,9 @@ const router = createBrowserRouter([
       { path: '*', element: <NotFound /> },
     ],
   },
-]);
+], {
+  basename: '/react-ecommerce/'
+});
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
