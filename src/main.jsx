@@ -1,6 +1,8 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router';
+import Login from './pages/Login';
+import ProtectedRoute from './components/ProtectedRoute';
 import './index.css';
 
 // State Providers
@@ -23,7 +25,14 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <ProductsList /> },
       { path: 'product/:id', element: <ProductDetails /> },
-      { path: 'cart', element: <Cart /> },
+      { path: 'login', element: <Login /> },
+      // Protected Routes Wrapper
+      {
+        element: <ProtectedRoute />,
+        children: [
+          { path: 'cart', element: <Cart /> },
+        ]
+      },
       { path: '*', element: <NotFound /> },
     ],
   },
