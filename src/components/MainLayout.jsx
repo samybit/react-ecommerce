@@ -1,23 +1,35 @@
 import { useEffect } from 'react';
-import { Outlet, Link } from 'react-router';
+import { Outlet, Link, useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
 import { useThemeStore } from '../store/useThemeStore';
 import { useLanguage } from '../context/LanguageContext';
+import { useAuthStore } from '../store/useAuthStore';
 
 export default function MainLayout() {
-    // Zustand
+    // Zustand (Theme & Auth)
     const { theme, toggleTheme } = useThemeStore();
-    // Redux
+    const { token, logout } = useAuthStore();
+
+    // Redux (Cart)
     const cartItems = useSelector((state) => state.cart.cartItems);
-    // Context API
+
+    // Context API (Localization)
     const { language, toggleLanguage } = useLanguage();
 
-    // Sync Zustand with Tailwind
+    // React Router
+    const navigate = useNavigate();
+
+    // Sync Zustand theme state with Tailwind's HTML dark class
     useEffect(() => {
         const root = window.document.documentElement;
         if (theme === 'dark') root.classList.add('dark');
         else root.classList.remove('dark');
     }, [theme]);
+
+    const handleLogout = () => {
+        logout(); // Clears the token in Zustand
+        navigate('/login'); // Kicks the user back to the login screen
+    };
 
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 transition-colors duration-300">
@@ -32,7 +44,18 @@ export default function MainLayout() {
                     </span>
                 </div>
 
-                <div className="flex gap-3">
+                <div className="flex gap-3 items-center">
+                    {/* Dynamic Auth Button */}
+                    {token ? (
+                        <button onClick={handleLogout} className="px-3 py-1 bg-red-100 text-red-700 hover:bg-red-200 dark:bg-red-900 dark:text-red-100 rounded font-semibold transition">
+                            Logout
+                        </button>
+                    ) : (
+                        <Link to="/login" className="px-3 py-1 bg-blue-100 text-blue-700 hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-100 rounded font-semibold transition">
+                            Login
+                        </Link>
+                    )}
+
                     <button onClick={toggleLanguage} className="px-3 py-1 bg-zinc-200 dark:bg-zinc-800 rounded">
                         {language === 'en' ? 'AR' : 'EN'}
                     </button>
