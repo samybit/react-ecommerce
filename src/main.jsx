@@ -36,7 +36,7 @@ const router = createBrowserRouter([
     ],
   },
 ], {
-  basename: '/react-ecommerce/'
+  basename: import.meta.env.BASE_URL
 });
 
 createRoot(document.getElementById('root')).render(
