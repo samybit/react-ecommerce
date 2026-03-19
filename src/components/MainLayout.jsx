@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { useThemeStore } from '../store/useThemeStore';
 import { useLanguage } from '../context/LanguageContext';
 import { useAuthStore } from '../store/useAuthStore';
+import { useTranslation } from 'react-i18next';
 
 export default function MainLayout() {
     // Zustand (Theme & Auth)
@@ -18,6 +19,9 @@ export default function MainLayout() {
 
     // React Router
     const navigate = useNavigate();
+
+    // Initialize the translation function
+    const { t } = useTranslation();
 
     // Sync Zustand theme state with Tailwind's HTML dark class
     useEffect(() => {
@@ -35,24 +39,24 @@ export default function MainLayout() {
         <div className="min-h-screen bg-gray-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 transition-colors duration-300">
             <nav className="fixed top-0 w-full bg-white dark:bg-zinc-900 shadow p-4 flex justify-between items-center z-50">
                 <div className="flex gap-6 items-center">
-                    <Link to="/" className="font-bold text-blue-600 hover:text-blue-800">Home</Link>
+                    {/* 3. Replace text with t('object.key') */}
+                    <Link to="/" className="font-bold text-blue-600 hover:text-blue-800">{t('navbar.home')}</Link>
                     <Link to="/cart" className="font-bold text-blue-600 hover:text-blue-800">
-                        Cart ({cartItems.length})
+                        {t('navbar.cart')} ({cartItems.length})
                     </Link>
                     <span className="font-medium text-zinc-500">
-                        {language === 'en' ? 'Welcome' : 'مرحباً'}
+                        {t('navbar.welcome')}
                     </span>
                 </div>
 
                 <div className="flex gap-3 items-center">
-                    {/* Dynamic Auth Button */}
                     {token ? (
                         <button onClick={handleLogout} className="px-3 py-1 bg-red-100 text-red-700 hover:bg-red-200 dark:bg-red-900 dark:text-red-100 rounded font-semibold transition">
-                            Logout
+                            {t('navbar.logout')}
                         </button>
                     ) : (
                         <Link to="/login" className="px-3 py-1 bg-blue-100 text-blue-700 hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-100 rounded font-semibold transition">
-                            Login
+                            {t('navbar.login')}
                         </Link>
                     )}
 
@@ -60,7 +64,7 @@ export default function MainLayout() {
                         {language === 'en' ? 'AR' : 'EN'}
                     </button>
                     <button onClick={toggleTheme} className="px-3 py-1 bg-zinc-200 dark:bg-zinc-800 rounded">
-                        {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
+                        {theme === 'light' ? t('navbar.darkMode') : t('navbar.lightMode')}
                     </button>
                 </div>
             </nav>

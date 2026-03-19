@@ -1,0 +1,21 @@
+{
+  "navbar": {
+    "home": "الرئيسية",
+    "cart": "عربة التسوق",
+    "login": "تسجيل الدخول",
+    "logout": "تسجيل الخروج",
+    "welcome": "مرحباً",
+    "darkMode": "الوضع الداكن",
+    "lightMode": "الوضع المضيء"
+  },
+  "products": {
+    "all": "الكل",
+    "electronics": "إلكترونيات",
+    "clothes": "ملابس",
+    "currentlyBrowsing": "تتصفح حالياً: {{category}}",
+    "allProducts": "جميع المنتجات",
+    "details": "التفاصيل",
+    "addToCart": "أضف للسلة",
+    "loading": "جاري تحميل المنتجات..."
+  }
+}

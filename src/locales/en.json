@@ -1,0 +1,21 @@
+{
+    "navbar": {
+        "home": "Home",
+        "cart": "Cart",
+        "login": "Login",
+        "logout": "Logout",
+        "welcome": "Welcome",
+        "darkMode": "Dark Mode",
+        "lightMode": "Light Mode"
+    },
+    "products": {
+        "all": "All",
+        "electronics": "Electronics",
+        "clothes": "Clothes",
+        "currentlyBrowsing": "Currently Browsing: {{category}}",
+        "allProducts": "All Products",
+        "details": "Details",
+        "addToCart": "Add to Cart",
+        "loading": "Loading products..."
+    }
+}

@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router';
 import Login from './pages/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 import './index.css';
+import './i18n';
 
 // State Providers
 import { Provider } from 'react-redux';
