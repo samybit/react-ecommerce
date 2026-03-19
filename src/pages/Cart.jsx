@@ -1,16 +1,19 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart } from '../store/cartSlice';
+import { useTranslation } from 'react-i18next'; // 1. Import hook
 
 export default function Cart() {
     const cartItems = useSelector((state) => state.cart.cartItems);
     const dispatch = useDispatch();
+    const { t } = useTranslation(); // 2. Initialize translation
 
     return (
         <div className="max-w-4xl mx-auto mt-8">
-            <h1 className="text-3xl font-bold mb-6">Shopping Cart</h1>
+            {/* 3. Inject translations */}
+            <h1 className="text-3xl font-bold mb-6">{t('cart.title')}</h1>
 
             {cartItems.length === 0 ? (
-                <p className="text-zinc-500">Your cart is empty.</p>
+                <p className="text-zinc-500">{t('cart.empty')}</p>
             ) : (
                 <div className="flex flex-col gap-4">
                     {cartItems.map((item, index) => (
@@ -26,7 +29,7 @@ export default function Cart() {
                                 onClick={() => dispatch(removeFromCart(item.id))}
                                 className="px-4 py-2 bg-red-100 text-red-700 hover:bg-red-200 dark:bg-red-900 dark:text-red-100 rounded transition"
                             >
-                                Remove
+                                {t('cart.remove')}
                             </button>
                         </div>
                     ))}

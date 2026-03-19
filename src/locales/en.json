@@ -17,5 +17,14 @@
         "details": "Details",
         "addToCart": "Add to Cart",
         "loading": "Loading products..."
+    },
+    "cart": {
+        "title": "Shopping Cart",
+        "empty": "Your cart is empty.",
+        "remove": "Remove"
+    },
+    "productDetails": {
+        "notFound": "Product not found.",
+        "backToHome": "Back to Home"
     }
 }

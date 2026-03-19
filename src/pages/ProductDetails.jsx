@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router';
-
 import { Skeleton } from "../components/ui/skeleton";
+import { useTranslation } from 'react-i18next'; // 1. Import hook
 
 export default function ProductDetails() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
+    const { t } = useTranslation(); // 2. Initialize translation
 
     useEffect(() => {
         // Fetch the single product by ID
@@ -34,7 +35,8 @@ export default function ProductDetails() {
     }
 
     if (!product) {
-        return <div className="text-center mt-10 text-xl text-red-500">Product not found.</div>;
+        // 3. Translate error message
+        return <div className="text-center mt-10 text-xl text-red-500">{t('productDetails.notFound')}</div>;
     }
 
     // Actual UI once data is loaded
@@ -61,7 +63,8 @@ export default function ProductDetails() {
                     onClick={() => navigate('/')}
                     className="px-6 py-2 bg-zinc-800 text-white rounded hover:bg-zinc-700 dark:bg-zinc-200 dark:text-zinc-900 transition"
                 >
-                    Back to Home
+                    {/* 4. Translate back button */}
+                    {t('productDetails.backToHome')}
                 </button>
             </div>
         </div>
