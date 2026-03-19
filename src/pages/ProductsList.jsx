@@ -36,7 +36,7 @@ export default function ProductsList() {
             {/* The Header and Filters are now instantly visible */}
             <h1 className="text-2xl font-bold mb-6">
                 {category
-                    ? t('products.currentlyBrowsing', { category: category.charAt(0).toUpperCase() + category.slice(1) })
+                    ? t('products.currentlyBrowsing', { category: t(`products.${category}`) })
                     : t('products.allProducts')}
             </h1>
 
