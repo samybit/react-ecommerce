@@ -5,7 +5,8 @@ import { useThemeStore } from '../store/useThemeStore';
 import { useLanguage } from '../context/LanguageContext';
 import { useAuthStore } from '../store/useAuthStore';
 import { useTranslation } from 'react-i18next';
-import { Store } from 'lucide-react';
+import { Store, ShoppingCart } from 'lucide-react';
+
 
 export default function MainLayout() {
     // Zustand (Theme & Auth)
@@ -40,19 +41,29 @@ export default function MainLayout() {
         <div className="min-h-screen bg-gray-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 transition-colors duration-300">
             <nav className="fixed top-0 w-full bg-white dark:bg-zinc-900 shadow p-4 flex justify-between items-center z-50">
                 <div className="flex gap-6 items-center">
+                    {/* Home */}
                     <Link to="/" className="flex items-center gap-2 font-bold text-blue-600 hover:text-blue-800 transition">
                         <Store className="w-5 h-5" />
                         <span>{t('navbar.home')}</span>
                     </Link>
-                    <Link to="/cart" className="font-bold text-blue-600 hover:text-blue-800 transition">
-                        {t('navbar.cart')} ({cartItems.length})
+
+                    {/* Cart */}
+                    <Link to="/cart" className="flex items-center gap-2 font-bold text-blue-600 hover:text-blue-800 transition">
+                        <ShoppingCart className="w-5 h-5" />
+                        <span>
+                            {t('navbar.cart')} ({cartItems.length})
+                        </span>
                     </Link>
+
+                    {/* Welcome */}
                     <span className="font-medium text-zinc-500">
                         {t('navbar.welcome')}
                     </span>
                 </div>
 
+                {/* Actions */}
                 <div className="flex gap-3 items-center">
+                    {/* Login/Logout */}
                     {token ? (
                         <button onClick={handleLogout} className="px-3 py-1 bg-red-100 text-red-700 hover:bg-red-200 dark:bg-red-900 dark:text-red-100 rounded font-semibold transition">
                             {t('navbar.logout')}
@@ -63,6 +74,7 @@ export default function MainLayout() {
                         </Link>
                     )}
 
+                    {/* Toggle Language */}
                     <button onClick={toggleLanguage} className="px-3 py-1 bg-zinc-200 dark:bg-zinc-800 rounded">
                         {language === 'en' ? 'AR' : 'EN'}
                     </button>
@@ -71,6 +83,7 @@ export default function MainLayout() {
                     </button>
                 </div>
             </nav>
+            {/* Main Content */}
             <main className="pt-20 p-4 w-full">
                 <Outlet />
             </main>
