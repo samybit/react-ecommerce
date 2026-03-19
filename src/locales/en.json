@@ -26,5 +26,13 @@
     "productDetails": {
         "notFound": "Product not found.",
         "backToHome": "Back to Home"
+    },
+    "login": {
+        "title": "Login",
+        "email": "Email",
+        "password": "Password",
+        "submit": "Sign In",
+        "emailError": "Please enter a valid email address.",
+        "passwordError": "Password must be at least 6 characters."
     }
 }
