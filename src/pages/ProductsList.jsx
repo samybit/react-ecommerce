@@ -10,6 +10,7 @@ export default function ProductsList() {
     const [loading, setLoading] = useState(true);
     const [searchParams, setSearchParams] = useSearchParams();
     const category = searchParams.get('category');
+    const searchQuery = searchParams.get('search');
     const dispatch = useDispatch();
 
     const { t } = useTranslation();
@@ -24,9 +25,21 @@ export default function ProductsList() {
             .catch((err) => console.error("Failed to fetch products:", err));
     }, []);
 
-    const filteredProducts = category
-        ? products.filter(p => p.category?.name?.toLowerCase().includes(category.toLowerCase()))
-        : products;
+    // Category and Search Filter
+    const filteredProducts = products.filter(p => {
+        // 1. Check if it matches the category (or if no category is selected)
+        const matchesCategory = category
+            ? p.category?.name?.toLowerCase().includes(category.toLowerCase())
+            : true;
+
+        // 2. Check if it matches the search term (or if no search term exists)
+        const matchesSearch = searchQuery
+            ? p.title.toLowerCase().includes(searchQuery.toLowerCase())
+            : true;
+
+        // Only show the product if it passes BOTH tests
+        return matchesCategory && matchesSearch;
+    });
 
     // Create an empty array to loop through and render skeleton cards
     const skeletonCards = [1, 2, 3, 4, 5, 6];
