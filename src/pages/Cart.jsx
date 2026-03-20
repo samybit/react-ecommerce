@@ -1,15 +1,19 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { removeFromCart } from '../store/cartSlice';
+import { removeFromCart, incrementQuantity, decrementQuantity } from '../store/cartSlice'; // Added new actions
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
+import { Plus, Minus, Trash2 } from 'lucide-react';
 
 export default function Cart() {
     const cartItems = useSelector((state) => state.cart.cartItems);
     const dispatch = useDispatch();
     const { t } = useTranslation();
 
-    // Calculate the total price of all items in the cart
-    const totalPrice = cartItems.reduce((sum, item) => sum + item.price, 0);
+    // Calculate total price
+    const totalPrice = cartItems.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+
+    // Calculate true total items
+    const totalItemsCount = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
 
     return (
         <div className="max-w-6xl mx-auto mt-8 px-4">
@@ -28,10 +32,11 @@ export default function Cart() {
 
                     {/* Left Side: Scrollable Products List (The Slider) */}
                     <div className="lg:col-span-2">
-                        {/* creates the internal scrollbar */}
                         <div className="flex flex-col gap-4 max-h-[600px] overflow-y-auto pr-2">
                             {cartItems.map((item, index) => (
-                                <div key={`${item.id}-${index}`} className="flex justify-between items-center p-4 border border-zinc-200 dark:border-zinc-800 rounded-lg bg-white dark:bg-zinc-900 shadow-sm shrink-0">
+                                <div key={`${item.id}-${index}`} className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 border border-zinc-200 dark:border-zinc-800 rounded-lg bg-white dark:bg-zinc-900 shadow-sm shrink-0 gap-4">
+
+                                    {/* Product Image & Info */}
                                     <div className="flex items-center gap-4">
                                         <img
                                             src={item.images[0]}
@@ -40,16 +45,41 @@ export default function Cart() {
                                             onError={(e) => e.target.src = 'https://via.placeholder.com/150'}
                                         />
                                         <div>
-                                            <h2 className="font-semibold text-lg">{item.title}</h2>
+                                            <h2 className="font-semibold text-lg line-clamp-1">{item.title}</h2>
                                             <p className="text-blue-600 dark:text-blue-400 font-medium">${item.price}</p>
                                         </div>
                                     </div>
-                                    <button
-                                        onClick={() => dispatch(removeFromCart(item.id))}
-                                        className="px-4 py-2 bg-red-100 text-red-700 hover:bg-red-200 dark:bg-red-900 dark:text-red-100 rounded transition"
-                                    >
-                                        {t('cart.remove')}
-                                    </button>
+
+                                    {/* Actions: Quantity Controls & Remove */}
+                                    <div className="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
+                                        {/* Quantity Slider */}
+                                        <div className="flex items-center bg-zinc-100 dark:bg-zinc-800 rounded-lg p-1">
+                                            <button
+                                                onClick={() => dispatch(decrementQuantity(item.id))}
+                                                className="p-1 hover:bg-white dark:hover:bg-zinc-700 rounded transition text-zinc-600 dark:text-zinc-300 shadow-sm"
+                                            >
+                                                <Minus className="w-4 h-4" />
+                                            </button>
+                                            <span className="w-8 text-center font-semibold text-sm">
+                                                {item.quantity || 1}
+                                            </span>
+                                            <button
+                                                onClick={() => dispatch(incrementQuantity(item.id))}
+                                                className="p-1 hover:bg-white dark:hover:bg-zinc-700 rounded transition text-zinc-600 dark:text-zinc-300 shadow-sm"
+                                            >
+                                                <Plus className="w-4 h-4" />
+                                            </button>
+                                        </div>
+
+                                        {/* Trash/Remove Button */}
+                                        <button
+                                            onClick={() => dispatch(removeFromCart(item.id))}
+                                            className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-lg transition"
+                                            title={t('cart.remove')}
+                                        >
+                                            <Trash2 className="w-5 h-5" />
+                                        </button>
+                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -57,7 +87,6 @@ export default function Cart() {
 
                     {/* Right Side: Order Summary */}
                     <div className="lg:col-span-1">
-                        {/* box float and follow the user as they scroll */}
                         <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg shadow-sm p-6 sticky top-24">
                             <h2 className="text-xl font-bold mb-6 border-b border-zinc-200 dark:border-zinc-800 pb-4">
                                 {t('cart.summary')}
@@ -65,11 +94,13 @@ export default function Cart() {
 
                             <div className="flex justify-between mb-4 text-zinc-600 dark:text-zinc-400">
                                 <span>{t('cart.totalItems')}</span>
-                                <span className="font-medium text-zinc-900 dark:text-white">{cartItems.length}</span>
+                                {/* Updated to use the new totalItemsCount */}
+                                <span className="font-medium text-zinc-900 dark:text-white">{totalItemsCount}</span>
                             </div>
 
                             <div className="flex justify-between mb-6 text-lg font-bold">
                                 <span>{t('cart.totalPrice')}</span>
+                                {/* Shows calculated total price */}
                                 <span className="text-blue-600 dark:text-blue-400">${totalPrice.toFixed(2)}</span>
                             </div>
 
@@ -78,6 +109,7 @@ export default function Cart() {
                             </button>
                         </div>
                     </div>
+
                 </div>
             )}
         </div>
