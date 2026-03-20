@@ -4,8 +4,8 @@ A fully responsive, production-ready e-commerce storefront built with React. Thi
 
 ## 🚀 Live Demos
 
-- **Cloudflare Pages:** [Insert your Cloudflare URL here]
-- **GitHub Pages:** [Insert your GitHub Pages URL here]
+- **Cloudflare Pages:** [[Cloudflare URL](https://react-ecommerce-ct1.pages.dev/)]
+- **GitHub Pages:** [[GitHub Pages URL](https://samybit.github.io/react-ecommerce/)]
 
 > Note: This project utilizes a dual-deployment CI/CD pipeline. Both links serve the exact same code, automatically deployed via GitHub Actions and Cloudflare Git integrations.
 
