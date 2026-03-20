@@ -6,7 +6,8 @@
         "logout": "Logout",
         "welcome": "Welcome",
         "darkMode": "Dark Mode",
-        "lightMode": "Light Mode"
+        "lightMode": "Light Mode",
+        "searchPlaceholder": "Search products..."
     },
     "products": {
         "all": "All",

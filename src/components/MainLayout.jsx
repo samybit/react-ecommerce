@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet, Link, useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
 import { useThemeStore } from '../store/useThemeStore';
 import { useLanguage } from '../context/LanguageContext';
 import { useAuthStore } from '../store/useAuthStore';
 import { useTranslation } from 'react-i18next';
-import { Store, ShoppingCart } from 'lucide-react';
+import { Store, ShoppingCart, Search } from 'lucide-react';
 
 
 export default function MainLayout() {
@@ -24,6 +24,19 @@ export default function MainLayout() {
 
     // Initialize the translation function
     const { t } = useTranslation();
+
+    // Add local state for the search input
+    const [searchTerm, setSearchTerm] = useState('');
+
+    // Handle the search submission
+    const handleSearch = (e) => {
+        e.preventDefault();
+        if (searchTerm.trim()) {
+            navigate(`/?search=${searchTerm}`); // Push search to the URL
+        } else {
+            navigate('/'); // Clear search if empty
+        }
+    };
 
     // Sync Zustand theme state with Tailwind's HTML dark class
     useEffect(() => {
@@ -56,10 +69,22 @@ export default function MainLayout() {
                     </Link>
 
                     {/* Welcome */}
-                    <span className="font-medium text-zinc-500">
+                    {/* <span className="font-medium text-zinc-500">
                         {t('navbar.welcome')}
-                    </span>
+                    </span> */}
                 </div>
+                
+                {/* Search Bar */}
+                <form onSubmit={handleSearch} className="hidden md:flex items-center bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded px-3 py-1 mx-4 w-full max-w-sm focus-within:ring-2 ring-blue-500 transition">
+                    <Search className="w-4 h-4 text-zinc-400" />
+                    <input
+                        type="text"
+                        placeholder={t('navbar.searchPlaceholder')}
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="bg-transparent border-none outline-none px-2 w-full text-sm"
+                    />
+                </form>
 
                 {/* Actions */}
                 <div className="flex gap-3 items-center">

@@ -6,7 +6,8 @@
     "logout": "تسجيل الخروج",
     "welcome": "مرحباً",
     "darkMode": "الوضع الداكن",
-    "lightMode": "الوضع المضيء"
+    "lightMode": "الوضع المضيء",
+    "searchPlaceholder": "ابحث عن المنتجات..."
   },
   "products": {
     "all": "الكل",
