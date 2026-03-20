@@ -22,7 +22,11 @@
     "cart": {
         "title": "Shopping Cart",
         "empty": "Your cart is empty.",
-        "remove": "Remove"
+        "remove": "Remove",
+        "summary": "Order Summary",
+        "totalItems": "Total Items",
+        "totalPrice": "Total Price",
+        "checkout": "Proceed to Checkout"
     },
     "productDetails": {
         "notFound": "Product not found.",

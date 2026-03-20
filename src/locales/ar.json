@@ -22,7 +22,11 @@
   "cart": {
     "title": "عربة التسوق",
     "empty": "عربة التسوق فارغة.",
-    "remove": "إزالة"
+    "remove": "إزالة",
+    "summary": "ملخص الطلب",
+    "totalItems": "إجمالي العناصر",
+    "totalPrice": "السعر الإجمالي",
+    "checkout": "إتمام الطلب"
   },
   "productDetails": {
     "notFound": "المنتج غير موجود.",
